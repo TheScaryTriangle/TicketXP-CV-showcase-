@@ -1,0 +1,34 @@
+/* Header bar container */
+.header-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333; /* Background color for the header */
+    color: #fff; /* Text color */
+    padding: 10px 0; /* Adjust padding as needed */
+    z-index: 100; /* Ensure it's above other page content */
+  }
+  
+  /* Header content container */
+  .header-content {
+    max-width: 960px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 0 20px; /* Add padding to the content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Style individual header elements */
+  .connection-status,
+  .account,
+  .network-id {
+    margin: 0;
+  }
+  
+  /* Style the connection status text specifically */
+  .connection-status {
+    font-weight: bold; /* Make it bold if desired */
+  }
+  
