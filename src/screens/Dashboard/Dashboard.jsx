@@ -20,13 +20,12 @@ const Dashboard = () => {
 
     /**
      * @dev Setup gets the contract into context and the user's balance
-     * @todo Move the contract saving into another seperate function
+     * @todo Add a fail state incase the contract cannot be loaded
      */
     const setup = async () => {
         try {
             const contract = await init(TicketNFTContractABI);
             setContract(contract)
-            console.log(contract)
         } catch (e) {
             console.log(e)
         }
@@ -34,7 +33,7 @@ const Dashboard = () => {
 
     return (
         <div>
-
+            Dashboard placeholder
         </div>
     )
 }

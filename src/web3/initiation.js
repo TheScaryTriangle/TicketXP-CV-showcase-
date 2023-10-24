@@ -6,6 +6,10 @@ let isInitialized = false;
 /**
  * @dev This is used to initalise the contract and get the contract object
  * @todo This is not the correct provider RPC change it so that it is from the wallet later
+ * @todo Add a failure condition and return an error if unsucessfull
+ * @todo Add more alternate providers
+ * @param ContractABI This is the raw contract ABI, take this from the contract compile export
+ * @param altAddress If an alternate address is provided then it will overide the one in the ABI
  * @returns Contract The contract object
  */
 export const init = async (contractABI, altAddress) => {
@@ -18,12 +22,11 @@ export const init = async (contractABI, altAddress) => {
     if (altAddress) {
         contractAddress = altAddress; // Use the altAddress if provided
     } else {
-        const networkId = await web3.eth.net.getId();
+        const networkId = await web3.eth.net.getId(); //Get the current newtork Id for the correct address
         contractAddress = contractABI.networks[networkId].address;
     }
 
-    // Check if the contract exists on the network here
-    contract = new web3.eth.Contract(contractABI.abi, contractAddress);
+    contract = new web3.eth.Contract(contractABI.abi, contractAddress); // Check if the contract exists on the network
     isInitialized = true;
     return contract;
 };

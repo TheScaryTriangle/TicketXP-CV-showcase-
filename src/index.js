@@ -15,7 +15,6 @@ root.render(
     <Web3ReactProvider getLibrary={getLibrary}>
       <App />
     </Web3ReactProvider>,
-
   </React.StrictMode>
 );
 

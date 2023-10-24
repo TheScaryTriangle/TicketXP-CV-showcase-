@@ -1,6 +1,5 @@
 var HDWalletProvider = require("@truffle/hdwallet-provider");
 
-
 module.exports = {
   networks: {
     ganache: {
@@ -8,11 +7,11 @@ module.exports = {
       port: 7545,
       network_id: "1337"
     },
-    linea:{
+    linea: {
       provider: () => new HDWalletProvider(
-        "ba660136095fcd5fed8b03df807f42bafb1796c007a126e342509bd260642f21", 
+        "ba660136095fcd5fed8b03df807f42bafb1796c007a126e342509bd260642f21",
         "https://rpc.goerli.linea.build	"
-        ),
+      ),
       network_id: 59140,
       enableTimeouts: false
     },
@@ -25,7 +24,7 @@ module.exports = {
         enabled: true,
         runs: 1773
       },
-      version: '0.8.9'
+      version: '0.8.20'
     },
   }
 }
