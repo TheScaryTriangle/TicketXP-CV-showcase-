@@ -14,6 +14,7 @@ import vendorModule from '../../api/vendorModule';
  *      Default to this page
  */
 const Dashboard = () => {
+    const [vendors, setVendors] = useState([])
     const { setContract, contract } = useContractContext(); // Use the context hook to access setContract
     const { active, chainId, account } = useWeb3React();
 
@@ -30,8 +31,9 @@ const Dashboard = () => {
             const contract = await init(TicketNFTContractABI);
             setContract(contract)
 
-            const vendors = await vendorModule.getVendorDetails()
-            console.log(vendors)
+            const vendorsAPIData = await vendorModule.getVendorDetails()
+            console.log(vendorsAPIData)
+            setVendors(vendorsAPIData)
         } catch (e) {
             console.log(e)
         }
@@ -39,7 +41,15 @@ const Dashboard = () => {
 
     return (
         <div>
-            Dashboard placeholder
+            <h1>Vendors</h1>
+            <ul>
+                {vendors.map((vendor) => (
+                    <li key={vendor._id}>
+                        <strong>{vendor.VendorName}</strong>
+                        <p>{vendor.VendorDescription}</p>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }

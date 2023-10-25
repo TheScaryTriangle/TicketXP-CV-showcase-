@@ -2,7 +2,7 @@ import apiCall from "./controler";
 
 const getVendorDetails = async () => {
     try {
-        const url = `vendorModule`;
+        const url = `vendorModule/GetAllVendors`;
         console.log(apiCall)
         const vendorSaveRequest = await apiCall.getURL(url);
         return vendorSaveRequest;
