@@ -6,6 +6,9 @@ import { useContractContext } from '../../context/contractContext';
 import { useWeb3React } from '@web3-react/core'
 import TicketNFTContractABI from '../../web3/contracts/TicketNFT.json'
 
+//APIs
+import vendorModule from '../../api/vendorModule';
+
 /**
  * @dev This is the main dashboard for the site.
  *      Default to this page
@@ -26,6 +29,9 @@ const Dashboard = () => {
         try {
             const contract = await init(TicketNFTContractABI);
             setContract(contract)
+
+            const vendors = await vendorModule.getVendorDetails()
+            console.log(vendors)
         } catch (e) {
             console.log(e)
         }
