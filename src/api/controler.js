@@ -31,6 +31,17 @@ const patchURL = async (endpointName, requestObj) => {
 
 const postURL = async (endpointName, requestObj) => {
   const url = `${baseUrl}${endpointName}`;
+  try {
+    const request = await apiClient.post(url, requestObj);
+    return request.data;
+  } catch (error) {
+    console.error(`An error occurred while posting to ${url}:`, error);
+    throw error;
+  }
+}
+
+const deleteURL = async (endpointName, requestObj) => {
+  const url = `${baseUrl}${endpointName}`;
   console.log(url)
   try {
     const request = await apiClient.post(url, requestObj);
@@ -41,4 +52,4 @@ const postURL = async (endpointName, requestObj) => {
   }
 }
 
-export default { getURL, patchURL, postURL };
+export default { getURL, patchURL, postURL, deleteURL };

@@ -33,8 +33,23 @@ const createVendor = async (obj) => {
     }
 }
 
+const deleteVendor = async (Id) => {
+    console.log(Id)
+    try {
+        const url = `vendorModule/DeleteVendor`;
+        const vendorDeleteRequest = await apiCall.deleteURL(url,{
+            id:Id
+        });
+        return vendorDeleteRequest;
+    } catch (error) {
+        console.error('An error occurred while getting vendor details:', error);
+        throw error;
+    }
+}
+
 export default {
     getVendorDetails,
     getVendorFromId,
-    createVendor
+    createVendor,
+    deleteVendor
 }
