@@ -1,0 +1,15 @@
+.vendor-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.vendor-item {
+    width: 25%; /* Each item takes up 25% of the container width for four items in a row */
+    box-sizing: border-box; /* Include padding and border in the width */
+    padding: 10px;
+}
+
+.clearfix {
+    clear: both;
+    width: 100%;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Header.css'; // Import your CSS file for styling
+import '../../css/Header.css'; // Import your CSS file for styling
 import { Link, Route, Routes } from "react-router-dom";
 import { mainPageArr } from '../../utility/MainPageArray';
 

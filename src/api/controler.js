@@ -9,7 +9,6 @@ const apiClient = axios.create({
 
 const getURL = async (endpointName) => {
   const url = `${baseUrl}${endpointName}`;
-  console.log(url)
   try {
     const request = await apiClient.get(url);
     return request.data;
