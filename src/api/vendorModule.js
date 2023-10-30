@@ -22,7 +22,19 @@ const getVendorFromId = async () => {
     }
 }
 
+const createVendor = async (obj) => {
+    try {
+        const url = `vendorModule/AddVendor`;
+        const vendorSaveRequest = await apiCall.postURL(url,obj);
+        return vendorSaveRequest;
+    } catch (error) {
+        console.error('An error occurred while getting vendor details:', error);
+        throw error;
+    }
+}
+
 export default {
     getVendorDetails,
-    getVendorFromId
+    getVendorFromId,
+    createVendor
 }

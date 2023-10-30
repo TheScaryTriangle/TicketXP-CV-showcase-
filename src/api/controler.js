@@ -31,6 +31,7 @@ const patchURL = async (endpointName, requestObj) => {
 
 const postURL = async (endpointName, requestObj) => {
   const url = `${baseUrl}${endpointName}`;
+  console.log(url)
   try {
     const request = await apiClient.post(url, requestObj);
     return request.data;
