@@ -2,9 +2,10 @@ import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import '../App.css';
 
-import Dashboard from "../screens/Dashboard/Dashboard";
-import Header from "../screens/Dashboard/Header";
-import Navbar from "../screens/Dashboard/Navbar";
+import Dashboard from "../screens/Homepage/Dashboard";
+import Header from "../screens/Homepage/Header";
+import Navbar from "../screens/Homepage/Navbar";
+import EventPage from "../screens/Homepage/EventPage";
 
 const mainPageArr = [Dashboard];
 
@@ -12,7 +13,7 @@ const DashboardRoute = () => {
   return (
     <div className="flex flex-col h-screen">
       <Header />
-      
+
       <div style={{ paddingTop: "50px" }}>
         <Navbar />
       </div>
@@ -22,6 +23,7 @@ const DashboardRoute = () => {
           <div style={{ paddingTop: "50px" }}>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} /> {/* Use lowercase "dashboard" */}
+              <Route path="/EventPage" element={<EventPage />} />
               {/* Default to Dashboard */}
               <Route path="*" element={<Dashboard />} />
             </Routes>

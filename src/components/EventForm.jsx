@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import eventModule from '../api/eventModule';
 
 const EventSchema = Yup.object().shape({
   EventName: Yup.string().required('Event Name is required'),
@@ -25,8 +26,10 @@ const EventForm = () => {
     TicketPrice: null,
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async(values) => {
     console.log('Form values:', values);
+    const addEventCall = await eventModule.addNewEvent(values)
+    console.log(addEventCall)
   };
 
   return (

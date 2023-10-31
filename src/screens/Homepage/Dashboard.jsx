@@ -8,12 +8,52 @@ import TicketNFTContractABI from '../../web3/contracts/TicketNFT.json'
 
 //APIs
 import vendorModule from '../../api/vendorModule';
+import eventModule from '../../api/eventModule';
+
+import EventDetails from '../../components/EventDetails';
 
 /**
  * @dev This is the main dashboard for the site.
  *      Default to this page
  */
 const Dashboard = () => {
+    const [events, setEvents] = useState([])
+
+    useEffect(() => {
+        setup()
+    }, []);
+
+    /**
+     * @dev Setup gets the contract into context and the user's balance
+     * @todo Add a fail state incase the contract cannot be loaded
+     */
+    const setup = async () => {
+        try {
+            const eventAPIData = await eventModule.getAllEventDetails();
+            console.log(eventAPIData)
+            setEvents(eventAPIData)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    return (
+        <div>
+            {events.map((event) => {
+                console.log(event)
+                return (
+                    <EventDetails
+                    eventData={event}
+                    />
+                )
+            })}
+
+            {/* <VendorAd/> */}
+        </div>
+    )
+}
+
+const VendorAd = () => {
     const [vendors, setVendors] = useState([])
     const { setContract, contract } = useContractContext(); // Use the context hook to access setContract
     const { active, chainId, account } = useWeb3React();
@@ -53,5 +93,7 @@ const Dashboard = () => {
         </div>
     )
 }
+
+
 
 export default Dashboard;

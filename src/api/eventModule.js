@@ -11,6 +11,30 @@ const getAllEventDetails = async () => {
     }
 };
 
+const getEventFromId = async (Id) => {
+    try {
+        const url = `ticketModule/GetEventById`;
+        const eventCallRequest = await apiCall.postURL(url, { id: Id });
+        return eventCallRequest;
+    } catch (error) {
+        console.error('An error occurred while getting event details:', error);
+        throw error;
+    }
+}
+
+const addNewEvent = async (obj) => {
+    try {
+        const url = `ticketModule/AddEvent`;
+        const eventCallRequest = await apiCall.postURL(url, obj);
+        return eventCallRequest;
+    } catch (error) {
+        console.error('An error occurred while getting event details:', error);
+        throw error;
+    }
+}
+
 export default {
     getAllEventDetails,
+    getEventFromId,
+    addNewEvent,
 }

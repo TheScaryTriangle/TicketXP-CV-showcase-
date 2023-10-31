@@ -5,7 +5,7 @@ import { useWeb3React } from '@web3-react/core';
 import TicketNFTContractABI from '../web3/contracts/TicketNFT.json';
 import vendorModule from '../api/vendorModule';
 
-import Header from './Dashboard/Header'
+import Header from './Homepage/Header'
 import VendorAdvertReel from '../components/VendorAdvertReel';
 
 const Homepage = () => {
@@ -19,14 +19,14 @@ const Homepage = () => {
 
     const setup = async () => {
         try {
-            const contract = await init(TicketNFTContractABI);
-            setContract(contract);
+            const vendorsAPIData = await vendorModule.getVendorDetails();
+            setVendors(vendorsAPIData);
         } catch (e) {
             console.log(e);
         }
         try {
-            const vendorsAPIData = await vendorModule.getVendorDetails();
-            setVendors(vendorsAPIData);
+            const contract = await init(TicketNFTContractABI);
+            setContract(contract);
         } catch (e) {
             console.log(e);
         }

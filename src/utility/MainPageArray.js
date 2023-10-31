@@ -1,3 +1,3 @@
-import Dashboard from "../screens/Dashboard/Dashboard";
+import Dashboard from "../screens/Homepage/Dashboard";
 
 export const mainPageArr = [Dashboard];
