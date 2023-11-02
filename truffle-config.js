@@ -5,7 +5,7 @@ module.exports = {
     ganache: {
       host: "127.0.0.1",
       port: 7545,
-      network_id: "1337"
+      network_id: 1337
     },
     linea: {
       provider: () => new HDWalletProvider(
@@ -24,7 +24,7 @@ module.exports = {
         enabled: true,
         runs: 1773
       },
-      version: '0.8.20'
+      version: '0.8.9'
     },
   }
 }

@@ -1,5 +1,5 @@
-const NFT = artifacts.require("./TicketXP.sol")
+const TicketNFT = artifacts.require("./TicketNFT.sol")
 
 module.exports = function (deployer) {
-	deployer.deploy(NFT);
+	deployer.deploy(TicketNFT,100);
 }

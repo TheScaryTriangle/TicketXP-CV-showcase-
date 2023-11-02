@@ -11,6 +11,23 @@ import eventModule from '../../api/eventModule';
 import Web3Login from '../../components/Web3Login';
 import formatDate from '../../utility/formatDate';
 
+import Modal from 'react-modal';
+
+const PurchaseModal = ({ isOpen, onRequestClose, onConfirm }) => {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            contentLabel="Purchase Confirmation"
+        >
+            <h2>Confirm Purchase</h2>
+            <p>Do you want to purchase a ticket for this event?</p>
+            <button onClick={onConfirm}>Confirm</button>
+            <button onClick={onRequestClose}>Cancel</button>
+        </Modal>
+    );
+};
+
 /**
  * @dev This is the main dashboard for the site.
  *      Default to this page
@@ -19,6 +36,10 @@ const EventPage = () => {
     const [event, setEvent] = useState(null)
     const { setContract, contract } = useContractContext();
     const { active, chainId, account } = useWeb3React();
+
+    const [ticketData, setTicketData] = useState()
+    const [isPurchaseModalOpen, setPurchaseModalOpen] = useState(false);
+
     useEffect(() => {
         setup()
     }, []);
@@ -32,12 +53,18 @@ const EventPage = () => {
     const setup = async () => {
         try {
             const Id = getIDFromURL()
-            console.log(Id)
             const eventAPIData = await eventModule.getEventFromId(Id);
             setEvent(eventAPIData)
 
             const contract = await init(TicketNFTContractABI);
             setContract(contract);
+            const ticketsSold = await contract.methods.ticketsSold().call()
+            const ticketsTotal = await contract.methods.numberOfTickets().call()
+            setTicketData({
+                numberOfTickets: String(ticketsTotal),
+                ticketsSold: String(ticketsSold),
+                ticketsLeft: String(ticketsTotal - ticketsSold)
+            })
         } catch (e) {
             console.log(e)
         }
@@ -50,10 +77,17 @@ const EventPage = () => {
     const buyTicket = async (contractAddress) => {
         console.log(contractAddress)
         console.log(contract.methods)
+        const buyRequest = await contract.methods.buyTicket().send({ from: account })
+        console.log(buyRequest)
+        setup()
     }
 
-    if(event == null){
-        return(
+    const onConfirmPurchase = async () => {
+        setPurchaseModalOpen(false);
+      };
+
+    if (event == null) {
+        return (
             <div>
 
             </div>
@@ -75,23 +109,32 @@ const EventPage = () => {
                 <p><strong>Event Details:</strong> {event.EventDetails}</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{ marginRight: '10px' }}>
-                        <p><strong>End of Sale:</strong> {formatDate(event.EndOfSale)}</p>
+                        <p>
+                            <strong>End of Sale:</strong> {formatDate(event.EndOfSale)}
+                        </p>
+                        <p>
+                            <strong>Tickets left:</strong>{ticketData?.ticketsLeft}
+                        </p>
                     </div>
                 </div>
             </div>
 
-
-            {/* Show the buy button if logged in and login if not */}
             {account ? (
                 <button
                     style={{ backgroundColor: 'blue', color: 'white' }}
-                    onClick={() => buyTicket(event.contractAddress)}
+                    onClick={() => setPurchaseModalOpen(true)}
                 >
                     Buy Now
                 </button>
             ) : (
                 <Web3Login />
             )}
+
+            <PurchaseModal
+                isOpen={isPurchaseModalOpen}
+                onRequestClose={() => setPurchaseModalOpen(false)}
+                onConfirm={onConfirmPurchase}
+            />
         </div>
     );
 }
