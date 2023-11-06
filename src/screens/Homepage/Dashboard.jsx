@@ -48,7 +48,7 @@ const Dashboard = () => {
                 )
             })}
 
-            {/* <VendorAd/> */}
+            <VendorAd/>
         </div>
     )
 }

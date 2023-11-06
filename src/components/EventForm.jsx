@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import eventModule from '../api/eventModule';
@@ -15,6 +15,8 @@ const EventSchema = Yup.object().shape({
 });
 
 const EventForm = () => {
+  const [contract, setContract] = useState([])
+
   const initialValues = {
     EventName: '',
     EventID: '',
@@ -24,6 +26,7 @@ const EventForm = () => {
     EndOfSale: null,
     EventDate: null,
     TicketPrice: null,
+    ContractAddress: '0xe4f638506e6DBA6EF0488770FD5eA8f8712bf64142FcdF871485F61332D89D78'
   };
 
   const handleSubmit = async(values) => {

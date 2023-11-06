@@ -75,16 +75,13 @@ const EventPage = () => {
      * @param {address} contractAddress The address of the contract to buy from
      */
     const buyTicket = async (contractAddress) => {
-        console.log(contractAddress)
-        console.log(contract.methods)
         const buyRequest = await contract.methods.buyTicket().send({ from: account })
-        console.log(buyRequest)
         setup()
     }
 
     const onConfirmPurchase = async () => {
         setPurchaseModalOpen(false);
-      };
+    };
 
     if (event == null) {
         return (
