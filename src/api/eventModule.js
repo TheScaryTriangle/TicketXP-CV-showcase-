@@ -33,8 +33,20 @@ const addNewEvent = async (obj) => {
     }
 }
 
+const deleteEvent = async (Id) => {
+    try {
+        const url = `ticketModule/deleteEvent`;
+        const deleteCallRequest = await apiCall.postURL(url, { id: Id });
+        return deleteCallRequest;
+    } catch (error) {
+        console.error('An error occurred while deleting event details:', error);
+        throw error;
+    }
+}
+
 export default {
     getAllEventDetails,
     getEventFromId,
     addNewEvent,
+    deleteEvent,
 }

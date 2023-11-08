@@ -8,6 +8,22 @@ import eventModule from '../api/eventModule';
  */
 const EventTable = () => {
     const [events, setEvents] = useState([]);
+    const columns = [
+        { field: "EventName", headerName: "EventName", minWidth: 40, flex: 1 },
+        {
+            headerName: "",
+            width: 60,
+            renderCell: (params) => {
+                return (
+                    <div>
+                        <button onClick={() => deleteEvent(params.row._id)}>
+                            Delete
+                        </button>
+                    </div>
+                );
+            },
+        },
+    ];
 
     useEffect(() => {
         setup();
@@ -22,15 +38,47 @@ const EventTable = () => {
             console.log(e);
         }
     };
-
+    const deleteEvent = async (Id) => {
+        const deleteCallRequest = await eventModule.deleteEvent(Id)
+        console.log(deleteCallRequest)
+        setup()
+    }
     return (
-        <div>
-                {events.map((event) => (
-                    <li key={event._id}>
-                        <strong>{event.EventName}</strong>
-                        <p>{event.TicketPrice ? `£${event.TicketPrice}` : "Free"}</p>
-                    </li>
-                ))}
+        <div style={{ height: 400, width: "100%" }}>
+            <DataGrid
+                rows={events}
+                getRowId={(row) => row._id}
+                columns={columns}
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 5 },
+                    },
+                }}
+                pageSizeOptions={[5, 10]}
+                checkboxSelection
+                disableColumnMenu
+                autoHeight={true}
+                density="comfortable"
+                sx={{
+                    "&.MuiDataGrid-root": {
+                        borderRadius: "20px",
+                        backgroundColor: "#ffffff",
+                        border: 0,
+                    },
+                    ".MuiDataGrid-cell": {
+                        "&:focus": {
+                            outline: "none",
+                        },
+                    },
+                    ".MuiDataGrid-withBorderColor": {
+                        border: "0",
+                    },
+                    ".MuiDataGrid-columnHeaderTitle": {
+                        fontWeight: "bold !important",
+                        overflow: "visible !important",
+                    },
+                }}
+            />
         </div>
     );
 };

@@ -17,13 +17,13 @@ const EventSchema = Yup.object().shape({
 const EventForm = () => {
   const initialValues = {
     EventName: '',
-    EventID: '',
-    EventDetails: '',
-    VendorID: '',
+    EventID: '10',
+    EventDetails: 'Test event for backend',
+    VendorID: 'true',
     IsActive: true,
-    EndOfSale: null,
-    EventDate: null,
-    TicketPrice: null,
+    EndOfSale: "2023-11-17",
+    EventDate: "2023-11-17",
+    TicketPrice: 1,
     ContractAddress: '0xe4f638506e6DBA6EF0488770FD5eA8f8712bf64142FcdF871485F61332D89D78',
     IsApproved:false,
     IsOnContract:false,    
@@ -32,8 +32,11 @@ const EventForm = () => {
   const handleSubmit = async(values) => {
     console.log('Form values:', values);
     const addEventCall = await eventModule.addNewEvent(values)
-    console.log(addEventCall)
-    alert("Created")
+    if(addEventCall.success){
+      alert("Created")
+    }else{
+      alert("Failed")
+    }
   };
 
   return (

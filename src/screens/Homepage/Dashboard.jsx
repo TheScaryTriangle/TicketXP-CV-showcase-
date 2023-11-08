@@ -24,8 +24,7 @@ const Dashboard = () => {
     const setup = async () => {
         try {
             const eventAPIData = await eventModule.getAllEventDetails();
-            console.log(eventAPIData);
-            setEvents(eventAPIData);
+            setEvents(eventAPIData.slice(0,5));
         } catch (e) {
             console.log(e);
         }
@@ -75,7 +74,6 @@ const VendorAd = () => {
             setContract(contract);
 
             const vendorsAPIData = await vendorModule.getVendorDetails();
-            console.log(vendorsAPIData);
             setVendors(vendorsAPIData);
         } catch (e) {
             console.log(e);
