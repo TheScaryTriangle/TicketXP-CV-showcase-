@@ -1,81 +1,84 @@
 import React, { useEffect, useState } from 'react';
 
-//Web3
+// Web3
 import { init } from '../../web3/initiation';
 import { useContractContext } from '../../context/contractContext';
-import { useWeb3React } from '@web3-react/core'
-import TicketNFTContractABI from '../../web3/contracts/TicketNFT.json'
+import { useWeb3React } from '@web3-react/core';
+import TicketNFTContractABI from '../../web3/contracts/TicketNFT.json';
 
-//APIs
+// APIs
 import vendorModule from '../../api/vendorModule';
 import eventModule from '../../api/eventModule';
 
 import EventDetails from '../../components/EventDetails';
 
-/**
- * @dev This is the main dashboard for the site.
- *      Default to this page
- */
+import heroImage from '../../assets/HomepageHeroBanner.jpg'
+
 const Dashboard = () => {
-    const [events, setEvents] = useState([])
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        setup()
+        setup();
     }, []);
 
-    /**
-     * @dev Setup gets the contract into context and the user's balance
-     * @todo Add a fail state incase the contract cannot be loaded
-     */
     const setup = async () => {
         try {
             const eventAPIData = await eventModule.getAllEventDetails();
-            console.log(eventAPIData)
-            setEvents(eventAPIData)
+            console.log(eventAPIData);
+            setEvents(eventAPIData);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
 
     return (
         <div>
-            {events.map((event) => {
-                console.log(event)
-                return (
-                    <EventDetails
-                    eventData={event}
-                    />
-                )
-            })}
+            <div className="hero-section">
+                <img
+                    src={heroImage}
+                    alt="Hero Image"
+                    className="hero-image"
+                />
+                <button className="get-tickets-button">Get Tickets</button>
+            </div>
 
-            <VendorAd/>
+            <h1>Popular Tickets</h1>
+            <div className="event-container">
+                {events.map((event) => {
+                    return (
+                        <EventDetails
+                            eventData={event}
+                            key={event._id}
+                        />
+                    )
+                }
+                )}
+            </div>
+
+            <VendorAd />
         </div>
-    )
+    );
 }
 
 const VendorAd = () => {
-    const [vendors, setVendors] = useState([])
-    const { setContract, contract } = useContractContext(); // Use the context hook to access setContract
+    const [vendors, setVendors] = useState([]);
+    const { setContract, contract } = useContractContext();
     const { active, chainId, account } = useWeb3React();
 
     useEffect(() => {
-        setup()
+        setup();
     }, []);
 
-    /**
-     * @dev Setup gets the contract into context and the user's balance
-     * @todo Add a fail state incase the contract cannot be loaded
-     */
     const setup = async () => {
         try {
             const contract = await init(TicketNFTContractABI);
-            setContract(contract)
+            setContract(contract);
 
-            const vendorsAPIData = await vendorModule.getVendorDetails()
-            console.log(vendorsAPIData)
-            setVendors(vendorsAPIData)
+            const vendorsAPIData = await vendorModule.getVendorDetails();
+            console.log(vendorsAPIData);
+            setVendors(vendorsAPIData);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
 
@@ -91,9 +94,7 @@ const VendorAd = () => {
                 ))}
             </ul>
         </div>
-    )
+    );
 }
-
-
 
 export default Dashboard;

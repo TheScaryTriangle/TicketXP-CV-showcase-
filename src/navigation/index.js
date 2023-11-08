@@ -10,8 +10,9 @@ const MainRouter = () => {
 
     return (
         <div>
-            <VendorRoute/>
             <DashboardRoute/>
+            <VendorRoute/>
+
             {/* If there is a web3 provider use the dashboard otherwise go to login*/}
             {/* {active ? <DashboardRoute /> : <LoginRoute />} */}
         </div>

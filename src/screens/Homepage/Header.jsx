@@ -1,21 +1,42 @@
 import React from 'react';
-import { useWeb3React } from '@web3-react/core';
-import '../../css/Header.css'; // Import your CSS file for styling
+import { Formik, Form, Field } from 'formik';
 
-const Header = () => {
-  const { active, chainId, account } = useWeb3React();
+function Header() {
+  const handleSubmit = (values, actions) => {
+    // Handle the form submission here (e.g., perform search).
+    console.log(values.searchQuery);
+    actions.setSubmitting(false); // Optional: Reset the form's submission state
+  };
 
   return (
-    <div className="header-bar">
-      <div className="header-content">
-        <div className="connection-status">
-          Connection Status: {active.toString()}
-        </div>
-        <div className="account">Account: {account}</div>
-        <div className="network-id">Network ID: {chainId}</div>
+    <div className="header" style={{ background: 'blue', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}>
+      <div>
+        <a href="/dashboard" style={{ textDecoration: 'none', color: 'white' }}>
+          <h1>Ticket XP</h1>
+        </a>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Formik
+          initialValues={{ searchQuery: '' }}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <Field
+              type="text"
+              name="searchQuery"
+              placeholder="Search"
+              style={{ padding: '5px', marginRight: '10px' }}
+            />
+            <button type="submit" style={{ background: 'blue', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
+              Cart
+            </button>
+          </Form>
+        </Formik>
+        <a href="/events" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Events</a>
+        <a href="/contact-us" style={{ textDecoration: 'none', color: 'white' }}>Contact Us</a>
       </div>
     </div>
   );
-};
+}
 
 export default Header;

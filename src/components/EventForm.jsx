@@ -15,24 +15,25 @@ const EventSchema = Yup.object().shape({
 });
 
 const EventForm = () => {
-  const [contract, setContract] = useState([])
-
   const initialValues = {
     EventName: '',
     EventID: '',
     EventDetails: '',
     VendorID: '',
-    IsActive: true, // Default value for boolean
+    IsActive: true,
     EndOfSale: null,
     EventDate: null,
     TicketPrice: null,
-    ContractAddress: '0xe4f638506e6DBA6EF0488770FD5eA8f8712bf64142FcdF871485F61332D89D78'
+    ContractAddress: '0xe4f638506e6DBA6EF0488770FD5eA8f8712bf64142FcdF871485F61332D89D78',
+    IsApproved:false,
+    IsOnContract:false,    
   };
 
   const handleSubmit = async(values) => {
     console.log('Form values:', values);
     const addEventCall = await eventModule.addNewEvent(values)
     console.log(addEventCall)
+    alert("Created")
   };
 
   return (

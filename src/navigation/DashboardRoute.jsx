@@ -14,13 +14,13 @@ const DashboardRoute = () => {
     <div className="flex flex-col h-screen">
       <Header />
 
-      <div style={{ paddingTop: "50px" }}>
+      {/* <div style={{ paddingTop: "50px" }}>
         <Navbar />
-      </div>
+      </div> */}
 
       <div className="flex flex-grow">
         <div className="w-[90%] p-4">
-          <div style={{ paddingTop: "50px" }}>
+          <div >
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} /> {/* Use lowercase "dashboard" */}
               <Route path="/EventPage" element={<EventPage />} />
