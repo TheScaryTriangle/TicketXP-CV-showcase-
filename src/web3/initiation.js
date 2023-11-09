@@ -14,8 +14,8 @@ let isInitialized = false;
  */
 export const init = async (contractABI, altAddress) => {
     let provider = window.ethereum;
-    // const web3 = new Web3(provider);
-    const web3 = new Web3("HTTP://127.0.0.1:7545");
+    const web3 = new Web3(provider);
+    // const web3 = new Web3("HTTP://127.0.0.1:7545");
 
     let contractAddress;
 

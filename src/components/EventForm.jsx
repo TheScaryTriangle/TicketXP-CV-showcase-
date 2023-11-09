@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import eventModule from '../api/eventModule';
+
+import { init } from '../web3/initiation';
+import { useContractContext } from '../context/contractContext';
+import { useWeb3React } from '@web3-react/core'
+import TicketNFTContractABI from '../web3/contracts/TicketXP.json'
+
+import Web3Login from './Web3Login';
 
 const EventSchema = Yup.object().shape({
   EventName: Yup.string().required('Event Name is required'),
@@ -15,6 +22,23 @@ const EventSchema = Yup.object().shape({
 });
 
 const EventForm = () => {
+  const { setContract, contract } = useContractContext();
+  const { active, chainId, account } = useWeb3React();
+
+  useEffect(() => {
+    setup()
+  }, []);
+  const setup = async () => {
+    try {
+      const contract = await init(TicketNFTContractABI);
+      console.log(contract.methods)
+      setContract(contract);
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const initialValues = {
     EventName: '',
     EventID: '10',
@@ -25,23 +49,31 @@ const EventForm = () => {
     EventDate: "2023-11-17",
     TicketPrice: 1,
     ContractAddress: '0xe4f638506e6DBA6EF0488770FD5eA8f8712bf64142FcdF871485F61332D89D78',
-    IsApproved:false,
-    IsOnContract:false,    
+    IsApproved: false,
+    IsOnContract: false,
   };
 
-  const handleSubmit = async(values) => {
+  const handleSubmit = async (values) => {
     console.log('Form values:', values);
     const addEventCall = await eventModule.addNewEvent(values)
-    if(addEventCall.success){
-      alert("Created")
-    }else{
+    if (addEventCall.success) {
+      // alert("Created")
+      console.log("Created")
+      console.log(account)
+      const contractCallRequest = await contract.methods.createEvent(
+        addEventCall.data._id,
+        values.TicketPrice
+      ).send({ from: account })
+      console.log(contractCallRequest)
+    } else {
       alert("Failed")
     }
   };
 
   return (
     <div>
-      <h2>Event Information</h2>
+      <h2>Add event</h2>
+      <Web3Login/>
       <Formik
         initialValues={initialValues}
         validationSchema={EventSchema}

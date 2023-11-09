@@ -48,7 +48,8 @@ const VendorTable = () => {
     };
 
     return (
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ width: "100%" }}>
+            <h1>Vendors</h1>
             <DataGrid
                 rows={vendors}
                 getRowId={(row) => row._id}

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { init } from '../../web3/initiation';
 import { useContractContext } from '../../context/contractContext';
 import { useWeb3React } from '@web3-react/core';
-import TicketNFTContractABI from '../../web3/contracts/TicketNFT.json';
+import TicketNFTContractABI from '../../web3/contracts/TicketXP.json'
 
 // APIs
 import vendorModule from '../../api/vendorModule';
@@ -54,7 +54,7 @@ const Dashboard = () => {
                 )}
             </div>
 
-            <VendorAd />
+            {/* <VendorAd /> */}
         </div>
     );
 }

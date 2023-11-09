@@ -28,7 +28,7 @@ const VendorForm = () => {
 
     return (
         <div>
-            <h2>Vendor Information</h2>
+            <h2>Add Vendor</h2>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}

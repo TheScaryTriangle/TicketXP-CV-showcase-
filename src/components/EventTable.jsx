@@ -44,7 +44,8 @@ const EventTable = () => {
         setup()
     }
     return (
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ width: "100%" }}>
+            <h1>Events</h1>
             <DataGrid
                 rows={events}
                 getRowId={(row) => row._id}
