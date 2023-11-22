@@ -20,7 +20,7 @@ const EventSchema = Yup.object().shape({
   EventDate: Yup.date(),
   TicketPrice: Yup.number(),
 });
-
+ 
 const EventForm = () => {
   const { setContract, contract } = useContractContext();
   const { active, chainId, account } = useWeb3React();
@@ -30,9 +30,8 @@ const EventForm = () => {
   }, []);
   const setup = async () => {
     try {
-      const contract = await init(TicketNFTContractABI);
-      console.log(contract.methods)
-      setContract(contract);
+      // const contract = await init(TicketNFTContractABI);
+      // setContract(contract);
 
     } catch (e) {
       console.log(e)

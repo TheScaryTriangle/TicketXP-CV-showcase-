@@ -32,7 +32,6 @@ const EventTable = () => {
     const setup = async () => {
         try {
             const eventAPIData = await eventModule.getAllEventDetails();
-            console.log(eventAPIData)
             setEvents(eventAPIData)
         } catch (e) {
             console.log(e);

@@ -7,6 +7,7 @@ import TokenFunctions from '../web3/TokenFunctions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+
 const Mint = ({ contract, account, onSuccess, onFailure}) => {
     // Define the Formik form
     const formik = useFormik({
