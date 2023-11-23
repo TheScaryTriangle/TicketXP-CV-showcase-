@@ -10,8 +10,8 @@ const VendorDashboard = () => {
 
     return (
         <div>
-            <VendorTable />
-            <VendorForm />
+            {/* <VendorTable />
+            <VendorForm /> */}
             <EventTable />
             <EventForm />
         </div>

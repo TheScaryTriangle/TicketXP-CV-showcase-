@@ -2,7 +2,7 @@ import apiCall from "./controler";
 
 const getAllEventDetails = async () => {
     try {
-        const url = `ticketModule/GetAllEvents`;
+        const url = `ticketModule/GetHomepageEvents`;
         const eventCallRequest = await apiCall.getURL(url);
         return eventCallRequest;
     } catch (error) {

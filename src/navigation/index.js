@@ -30,7 +30,7 @@ const MainRouter = () => {
         <div>
             {apiCheck ?
                 <div>
-                    <DashboardRoute />
+                    {/* <DashboardRoute /> */}
                     <VendorRoute />
                 </div>
                 :

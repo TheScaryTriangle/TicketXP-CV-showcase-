@@ -30,8 +30,8 @@ const EventForm = () => {
   }, []);
   const setup = async () => {
     try {
-      // const contract = await init(TicketNFTContractABI);
-      // setContract(contract);
+      const contract = await init(TicketNFTContractABI);
+      setContract(contract);
 
     } catch (e) {
       console.log(e)
@@ -54,21 +54,18 @@ const EventForm = () => {
 
   const handleSubmit = async (values) => {
     console.log('Form values:', values);
+    try{
+
+    }catch{
+
+    }
     const addEventCall = await eventModule.addNewEvent(values)
     if (addEventCall.success) {
-      // alert("Created")
       console.log("Created")
-      console.log(account)
-      const contractCallRequest = await contract.methods.createEvent(
-        addEventCall.data._id,
-        values.TicketPrice
-      ).send({ from: account })
-      console.log(contractCallRequest)
     } else {
       alert("Failed")
     }
   };
-
   return (
     <div>
       <h2>Add event</h2>
