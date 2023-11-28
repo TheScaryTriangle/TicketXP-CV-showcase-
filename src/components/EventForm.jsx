@@ -69,6 +69,7 @@ const EventForm = () => {
   return (
     <div>
       <h2>Add event</h2>
+      
       <Web3Login/>
       <Formik
         initialValues={initialValues}

@@ -7,6 +7,8 @@ import DashboardRoute from "./DashboardRoute";
 import HomepageRoute from './HomepageRoute';
 import VendorRoute from './VendorRoute'
 
+import QRCode from '../components/qrCode';
+
 //APIs
 import vendorModule from '../api/vendorModule';
 
@@ -31,7 +33,8 @@ const MainRouter = () => {
             {apiCheck ?
                 <div>
                     {/* <DashboardRoute /> */}
-                    <VendorRoute />
+                    {/* <VendorRoute /> */}
+                    <QRCode/>
                 </div>
                 :
                 <div>
