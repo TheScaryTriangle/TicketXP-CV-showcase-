@@ -10,11 +10,10 @@ const QRCode = () => {
 
     const setup = async () => {
         try {
-            const qrCode = await qrModule.getQRCode()
+            const qrCode = await qrModule.getQRCode('65711c717eb2dbd7567625a5')
             console.log(qrCode)
-            setQRSVG(qrCode)
-        } catch (e) {
-            console.log(e)
+            setQRSVG(qrCode.QRSVG)
+        } catch (e) {  
         }
     }
 
