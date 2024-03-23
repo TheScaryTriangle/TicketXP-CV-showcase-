@@ -32,9 +32,9 @@ const MainRouter = () => {
         <div>
             {apiCheck ?
                 <div>
-                    {/* <DashboardRoute /> */}
+                    <DashboardRoute />
                     {/* <VendorRoute /> */}
-                    <QRCode/>
+                    {/* <QRCode/> */}
                 </div>
                 :
                 <div>

@@ -28,12 +28,14 @@ function Header() {
               style={{ padding: '5px', marginRight: '10px' }}
             />
             <button type="submit" style={{ background: 'blue', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer' }}>
-              Cart
+              Search
             </button>
           </Form>
         </Formik>
+        <a href="/cart" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Cart</a>
         <a href="/events" style={{ textDecoration: 'none', color: 'white', margin: '0 10px' }}>Events</a>
         <a href="/contact-us" style={{ textDecoration: 'none', color: 'white' }}>Contact Us</a>
+        <a href="/UserLogin" style={{ textDecoration: 'none', color: 'white' }}>Login</a>
       </div>
     </div>
   );

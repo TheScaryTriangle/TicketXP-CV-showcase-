@@ -30,8 +30,8 @@ const EventForm = () => {
   }, []);
   const setup = async () => {
     try {
-      const contract = await init(TicketNFTContractABI);
-      setContract(contract);
+      // const contract = await init(TicketNFTContractABI);
+      // setContract(contract);
 
     } catch (e) {
       console.log(e)
@@ -39,7 +39,7 @@ const EventForm = () => {
   }
 
   const initialValues = {
-    EventName: '',
+    EventName: 'Test',
     EventID: '10',
     EventDetails: 'Test event for backend',
     VendorID: 'true',

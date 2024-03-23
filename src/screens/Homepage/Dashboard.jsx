@@ -24,7 +24,7 @@ const Dashboard = () => {
     const setup = async () => {
         try {
             const eventAPIData = await eventModule.getAllEventDetails();
-            setEvents(eventAPIData.slice(0,5));
+            setEvents(eventAPIData.slice(0, 5));
         } catch (e) {
             console.log(e);
         }
@@ -43,15 +43,16 @@ const Dashboard = () => {
 
             <h1>Popular Tickets</h1>
             <div className="event-container">
-                {events.map((event) => {
-                    return (
-                        <EventDetails
-                            eventData={event}
-                            key={event._id}
-                        />
-                    )
+                {
+                    // events ? events.map((event) => {
+                    //     return (
+                    //         <EventDetails
+                    //             eventData={event}
+                    //             key={event._id}
+                    //         />
+                    //     )
+                    // }) : null
                 }
-                )}
             </div>
 
             {/* <VendorAd /> */}

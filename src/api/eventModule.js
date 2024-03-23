@@ -1,9 +1,14 @@
 import apiCall from "./controler";
 
+/**
+ * @dev This gets all events from the DB
+ * @returns An array with every event
+ */
 const getAllEventDetails = async () => {
     try {
-        const url = `ticketModule/GetHomepageEvents`;
+        const url = `eventRoutes/getAllEvents`;
         const eventCallRequest = await apiCall.getURL(url);
+        console.log(eventCallRequest)
         return eventCallRequest;
     } catch (error) {
         console.error('An error occurred while getting event details:', error);
@@ -13,7 +18,7 @@ const getAllEventDetails = async () => {
 
 const getEventFromId = async (Id) => {
     try {
-        const url = `ticketModule/GetEventById`;
+        const url = `eventRoutes/GetEventById`;
         const eventCallRequest = await apiCall.postURL(url, { id: Id });
         return eventCallRequest;
     } catch (error) {
@@ -24,7 +29,7 @@ const getEventFromId = async (Id) => {
 
 const addNewEvent = async (obj) => {
     try {
-        const url = `ticketModule/AddEvent`;
+        const url = `eventRoutes/AddEvent`;
         const eventCallRequest = await apiCall.postURL(url, obj);
         return eventCallRequest;
     } catch (error) {
@@ -35,7 +40,7 @@ const addNewEvent = async (obj) => {
 
 const deleteEvent = async (Id) => {
     try {
-        const url = `ticketModule/deleteEvent`;
+        const url = `eventRoutes/deleteEvent`;
         const deleteCallRequest = await apiCall.postURL(url, { id: Id });
         return deleteCallRequest;
     } catch (error) {

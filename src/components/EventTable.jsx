@@ -7,43 +7,49 @@ import { useContractContext } from '../context/contractContext';
 import { useWeb3React } from '@web3-react/core'
 import TicketNFTContractABI from '../web3/contracts/TicketXP.json'
 
-/**
- * @dev Used to display all the current vendors for the CRM
- * @todo put in a confirmation modal for delete
- */
 const EventTable = () => {
     const [events, setEvents] = useState([]);
     const { setContract, contract } = useContractContext();
     const { active, chainId, account } = useWeb3React();
 
     const columns = [
-        { field: "EventName", headerName: "EventName", minWidth: 40, flex: 1 },
         {
-            headerName: "Contract",
-            width: 60,
+            field: "EventName",
+            headerName: "Event Name",
+            minWidth: 200,
+            flex: 1
+        },
+        {
+            field: "EventID",
+            headerName: "Event Id",
+            minWidth: 200,
+            flex: 1
+        }, 
+        {
+            field: "VendorID",
+            headerName: "Vendor Id",
+            minWidth: 200,
+            flex: 1
+        },  
+        {
+            field: "EventDetails",
+            headerName: "Event Details",
+            minWidth: 200,
+            flex: 1
+        },
+        {
+            headerName: "Delete Event",
+            width: 150,
             renderCell: (params) => {
                 return (
                     <div>
-                        <button onClick={() => createContract(params.row._id)}>
-                            Create
+                        <button onClick={() => deleteEvent(params.row._id)}>
+                            Delete Event
                         </button>
                     </div>
                 );
             },
         },
-        // {
-        //     headerName: "Delete",
-        //     width: 60,
-        //     renderCell: (params) => {
-        //         return (
-        //             <div>
-        //                 <button onClick={() => deleteEvent(params.row._id)}>
-        //                     Delete
-        //                 </button>
-        //             </div>
-        //         );
-        //     },
-        // },
     ];
 
     useEffect(() => {
@@ -53,78 +59,59 @@ const EventTable = () => {
     const setup = async () => {
         try {
             const eventAPIData = await eventModule.getAllEventDetails();
-            setEvents(eventAPIData)
-            const contract = await init(TicketNFTContractABI);
-            setContract(contract);
-
-            const events = await contract.methods.getEvent(1).call();
-            console.log(events)
-        } catch (e) {
-            console.log(e);
+            setEvents(eventAPIData);
+            // Initialize contract if not already initialized
+            if (!contract) {
+                const contractInstance = await init(TicketNFTContractABI);
+                setContract(contractInstance);
+            }
+        } catch (error) {
+            console.log("Error setting up:", error);
         }
     };
 
-    const deleteEvent = async (Id) => {
-        const deleteCallRequest = await eventModule.deleteEvent(Id)
-        console.log(deleteCallRequest)
-        setup()
-    }
-
-    const createContract = async (Id) => {
-        console.log(contract.methods)
-        console.log(account)
+    const deleteEvent = async (id) => {
         try {
-            const contractCallRequest = await contract.methods.createEvent(
-                3,
-                3
-            ).send({ 
-                from: account,
-                value:0
-            })
-            console.log(contractCallRequest)
-
-        } catch(e) {
-            console.log(e)
+            const deleteCallRequest = await eventModule.deleteEvent(id);
+            console.log(deleteCallRequest);
+            setup();
+        } catch (error) {
+            console.log("Error deleting event:", error);
         }
-        setup()
-    }
+    };
+
+    const createContract = async (id) => {
+        try {
+            const contractCallRequest = await contract.methods.createEvent(id, 3).send({
+                from: account,
+                value: 0
+            });
+            console.log("Contract creation successful:", contractCallRequest);
+            setup();
+        } catch (error) {
+            console.log("Error creating contract:", error);
+        }
+    };
 
     return (
         <div style={{ width: "100%" }}>
             <h1>Events</h1>
             <DataGrid
                 rows={events}
-                getRowId={(row) => row._id}
                 columns={columns}
+                getRowId={(row) => row._id}
+                pageSize={5}
+                checkboxSelection
+                disableColumnMenu
+                autoHeight={true}
+                density="comfortable"
+
                 initialState={{
                     pagination: {
                         paginationModel: { page: 0, pageSize: 5 },
                     },
                 }}
                 pageSizeOptions={[5, 10]}
-                checkboxSelection
-                disableColumnMenu
-                autoHeight={true}
-                density="comfortable"
-                sx={{
-                    "&.MuiDataGrid-root": {
-                        borderRadius: "20px",
-                        backgroundColor: "#ffffff",
-                        border: 0,
-                    },
-                    ".MuiDataGrid-cell": {
-                        "&:focus": {
-                            outline: "none",
-                        },
-                    },
-                    ".MuiDataGrid-withBorderColor": {
-                        border: "0",
-                    },
-                    ".MuiDataGrid-columnHeaderTitle": {
-                        fontWeight: "bold !important",
-                        overflow: "visible !important",
-                    },
-                }}
             />
         </div>
     );
