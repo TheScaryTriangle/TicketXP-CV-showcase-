@@ -6,4 +6,15 @@ const formatDate = (dateString) => {
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getHours()}`;
 };
 
-export default formatDate
+/**
+ * @dev Same as Format date but with year
+ */
+const formatDateWithYear = (dateString) => {
+  const date = new Date(dateString);
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+};
+
+export default {
+  formatDate,
+  formatDateWithYear
+}

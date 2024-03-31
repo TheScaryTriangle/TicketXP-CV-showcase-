@@ -1,31 +1,26 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
+import "./TicketNFT.sol";
+import "./EventObject.sol";
 
-import "./EventXP.sol";
-
-/**
- * @dev This is the factory contract for TicketXP
- * @notice Run all functions from the interface on this contract
- */
 contract TicketXP {
-    mapping (uint256 => TicketNFT) eventContract;
+
+    mapping (uint256 => TicketNFT) events;
+
     event EventCreated(TicketNFT contractData);
 
     function getEvent(uint256 _eventId) public view returns (TicketNFT) {
-        return eventContract[_eventId];
+        return events[_eventId];
     }
 
-    function createEvent(uint256 _eventId, uint64 _amountOfTickets) public {
-        TicketNFT newContract = new TicketNFT(_amountOfTickets,1);
-        eventContract[_eventId] = ((newContract)); 
+    function createEvent(string calldata _eventName,uint256 _eventId, uint256 _totalTickets, uint256 _ticketPrice) public {
+        TicketNFT newContract = new TicketNFT(EventObject(
+            _eventName,
+            0,  //Hardcode inital tickets sold to zero
+            _totalTickets,
+            _ticketPrice
+        ));
+        events[_eventId] = newContract;
         emit EventCreated(newContract);
-    }
-
-    function buyTicket(uint256 _eventId, uint64 _numberOfTickets) public payable {
-        eventContract[_eventId].buyTicket{value:msg.value}(_numberOfTickets);
-    }
-
-    function getTicketDetails(uint256 _eventId, uint64 _ticketId) public view returns(address){
-        return eventContract[_eventId].ticketOwner(_ticketId);
     }
 }

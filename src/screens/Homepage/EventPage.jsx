@@ -29,8 +29,8 @@ const PurchaseModal = ({ isOpen, onRequestClose, onConfirm }) => {
 };
 
 /**
- * @dev This is the main dashboard for the site.
- *      Default to this page
+ * @dev This page is used to show a single specific event 
+ * @dev Pass though the event ID in the url as EventPage?id=[id]
  */
 const EventPage = () => {
     const [event, setEvent] = useState(null)
@@ -52,7 +52,9 @@ const EventPage = () => {
      */
     const setup = async () => {
         try {
-            const Id = getIDFromURL()
+
+            const Id = getIDFromURL()   //Gets the Event Id from the URL
+            console.log(Id)
             const eventAPIData = await eventModule.getEventFromId(Id);
             setEvent(eventAPIData)
 
@@ -102,12 +104,12 @@ const EventPage = () => {
             </div>
             <div style={{ padding: '20px' }}>
                 <p><strong>Price:</strong> ${event.TicketPrice}</p>
-                <p><strong>Event Date:</strong> {formatDate(event.EventDate)}</p>
+                <p><strong>Event Date:</strong> {formatDate.formatDateWithYear(event.EventDate)}</p>
                 <p><strong>Event Details:</strong> {event.EventDetails}</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div style={{ marginRight: '10px' }}>
                         <p>
-                            <strong>End of Sale:</strong> {formatDate(event.EndOfSale)}
+                            <strong>End of Sale:</strong> {formatDate.formatDateWithYear(event.EndOfSale)}
                         </p>
                         <p>
                             <strong>Tickets left:</strong>{ticketData?.ticketsLeft}
@@ -136,8 +138,12 @@ const EventPage = () => {
     );
 }
 
+/**
+ * 
+ * @returns String 
+ */
 function getIDFromURL() {
-    const url = new URL(window.location.href);
+    const url = new URL(window.location.href); 
     const searchParams = new URLSearchParams(url.search);
     return searchParams.get("id");
 }

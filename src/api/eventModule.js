@@ -8,7 +8,6 @@ const getAllEventDetails = async () => {
     try {
         const url = `eventRoutes/getAllEvents`;
         const eventCallRequest = await apiCall.getURL(url);
-        console.log(eventCallRequest)
         return eventCallRequest;
     } catch (error) {
         console.error('An error occurred while getting event details:', error);
@@ -20,6 +19,7 @@ const getEventFromId = async (Id) => {
     try {
         const url = `eventRoutes/GetEventById`;
         const eventCallRequest = await apiCall.postURL(url, { id: Id });
+        console.log(eventCallRequest)
         return eventCallRequest;
     } catch (error) {
         console.error('An error occurred while getting event details:', error);
